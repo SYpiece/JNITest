@@ -13,8 +13,8 @@ jobs:
       - run: |
           mkdir -p build
           cd build
-          cmake -DCMAKE_BUILD_TYPE=Release ../
-          cmake --build .
+          cmake ../
+          cmake --build . --config Release
       - uses: actions/upload-artifact@v7
         with:
           path: ./build/libapp.so
@@ -29,8 +29,8 @@ jobs:
       - run: |
           mkdir -p build
           cd build
-          cmake -DCMAKE_BUILD_TYPE=Release ../
-          cmake --build .
+          cmake ../
+          cmake --build . --config Release
       - uses: actions/upload-artifact@v7
         with:
           path: ./build/app.dll
@@ -44,8 +44,8 @@ jobs:
       - run: |
           mkdir -p build
           cd build
-          cmake -DCMAKE_BUILD_TYPE=Release ../
-          cmake --build .
+          cmake ../
+          cmake --build . --config Release
       - uses: actions/upload-artifact@v7
         with:
           path: ./build/libapp.dylib
