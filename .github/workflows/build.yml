@@ -11,7 +11,6 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - run: |
-          sudo apt install -y pocl-opencl-icd cmake
           mkdir -p build
           cd build
           cmake ../
@@ -28,7 +27,6 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - run: |
-          sudo apt install -y pocl-opencl-icd cmake
           mkdir -p build
           cd build
           cmake ../
@@ -44,7 +42,6 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - run: |
-          sudo apt install -y pocl-opencl-icd cmake
           mkdir -p build
           cd build
           cmake ../
