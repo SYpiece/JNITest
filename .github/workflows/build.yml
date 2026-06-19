@@ -13,7 +13,7 @@ jobs:
       - run: |
           mkdir -p build
           cd build
-          cmake ../
+          cmake -DCMAKE_BUILD_TYPE=Release ../
           cmake --build .
       - uses: actions/upload-artifact@v7
         with:
@@ -29,7 +29,7 @@ jobs:
       - run: |
           mkdir -p build
           cd build
-          cmake ../
+          cmake -DCMAKE_BUILD_TYPE=Release ../
           cmake --build .
       - uses: actions/upload-artifact@v7
         with:
@@ -44,7 +44,7 @@ jobs:
       - run: |
           mkdir -p build
           cd build
-          cmake ../
+          cmake -DCMAKE_BUILD_TYPE=Release ../
           cmake --build .
       - uses: actions/upload-artifact@v7
         with:
