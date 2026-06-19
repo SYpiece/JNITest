@@ -1,0 +1,60 @@
+name: Build and Publish
+
+on:
+  workflow_dispatch:
+  release:
+    types: [created]
+
+jobs:
+  build-ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - run: |
+          sudo apt install -y pocl-opencl-icd cmake
+          mkdir -p build
+          cd build
+          cmake ../
+          cmake --build .
+      - uses: actions/upload-artifact@v7
+        with:
+          path: ./build/libapp.so
+          name: 'libapp.so'
+          archive: 'false'
+          if-no-files-found: 'error'
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7
+      - run: |
+          sudo apt install -y pocl-opencl-icd cmake
+          mkdir -p build
+          cd build
+          cmake ../
+          cmake --build .
+      - uses: actions/upload-artifact@v7
+        with:
+          path: ./build/app.dll
+          name: 'app.dll'
+          archive: 'false'
+          if-no-files-found: 'error'
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v7
+      - run: |
+          sudo apt install -y pocl-opencl-icd cmake
+          mkdir -p build
+          cd build
+          cmake ../
+          cmake --build .
+      - uses: actions/upload-artifact@v7
+        with:
+          path: ./build/libapp.dylib
+          name: 'libapp.dylib'
+          archive: 'false'
+          if-no-files-found: 'error'
+  build-publish:
+    needs: [build-macos, build-ubuntu, build-windows]
+    runs-on: ubuntu-latest
