@@ -33,7 +33,7 @@ jobs:
           cmake --build . --config Release
       - uses: actions/upload-artifact@v7
         with:
-          path: ./build/app.dll
+          path: ./build/Release/app.dll
           name: 'app.dll'
           archive: 'false'
           if-no-files-found: 'error'

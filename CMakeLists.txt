@@ -4,8 +4,8 @@ project(JNITest VERSION 1.0 LANGUAGES C)
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 
-find_package(Java REQUIRED)
-find_package(JNI REQUIRED)
+find_package(Java 1.8 REQUIRED)
+find_package(JNI 1.8 REQUIRED)
 
 if(NOT JNI_FOUND)
     message(FATAL_ERROR "JNI not found. Please set JAVA_HOME environment variable.")
