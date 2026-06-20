@@ -10,17 +10,14 @@ public class App {
 
     static {
         String os = System.getProperty("os.name").toLowerCase();
-        String resourcePath;
+        String arch = System.getProperty("os.arch").toLowerCase();
         String libFileName;
         if (os.contains("win")) {
-            resourcePath = "/native/app.dll";
-            libFileName = "app.dll";
+            libFileName = "native-lib-windows-amd64.dll";
         } else if (os.contains("mac")) {
-            resourcePath = "/native/libapp.dylib";
-            libFileName = "libapp.dylib";
+            libFileName = "native-lib-macos-" + arch + ".dylib";
         } else { // Linux / Unix
-            resourcePath = "/native/libapp.so";
-            libFileName = "libapp.so";
+            libFileName = "native-lib-linux-" + arch + ".so";
         }
 
         File tempDir = new File(System.getProperty("java.io.tmpdir"));
@@ -29,7 +26,7 @@ public class App {
             tempFile.delete();
         }
         try (
-                InputStream in = Objects.requireNonNull(App.class.getResourceAsStream(resourcePath));
+                InputStream in = Objects.requireNonNull(App.class.getResourceAsStream("/native/" + libFileName));
                 OutputStream out = Files.newOutputStream(tempFile.toPath());
         ) {
             byte[] buffer = new byte[1024];

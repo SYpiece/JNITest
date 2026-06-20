@@ -14,12 +14,12 @@ jobs:
           - os: ubuntu-latest
             java-distribution: temurin
             lib-path: ./build/libapp.so
-            artifact-name: native-lib-linux-amd64.so
+            artifact-name: native-lib-linux-x86_64.so
 
           - os: ubuntu-24.04-arm
             java-distribution: temurin
             lib-path: ./build/libapp.so
-            artifact-name: native-lib-linux-arm64.so
+            artifact-name: native-lib-linux-aarch64.so
 
           - os: windows-latest
             java-distribution: temurin
@@ -29,12 +29,12 @@ jobs:
           - os: macos-latest
             java-distribution: zulu
             lib-path: ./build/libapp.dylib
-            artifact-name: native-lib-macos-arm64.dylib
+            artifact-name: native-lib-macos-aarch64.dylib
 
           - os: macos-26-intel
             java-distribution: temurin
             lib-path: ./build/libapp.dylib
-            artifact-name: native-lib-macos-amd64.dylib
+            artifact-name: native-lib-macos-x86_64.dylib
 
     runs-on: ${{ matrix.os }}
     steps:
