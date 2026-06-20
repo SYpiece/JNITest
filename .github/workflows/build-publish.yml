@@ -50,7 +50,7 @@ jobs:
           cmake ../
           cmake --build . --config Release
       - run: |
-          mkdir -p ${{ matrix.resource-dir }}
+          mkdir -p ${{ env.NATIVE_PATH }}
           cp ${{ matrix.lib-path }} ${{ env.NATIVE_PATH }}
       - uses: actions/setup-java@v5
         with:
