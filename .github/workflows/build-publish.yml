@@ -33,7 +33,7 @@ jobs:
             java-version: 11
             java-distribution: microsoft
             lib-path: ./build/Release/app.dll
-            artifact-name: native-lib-windows-arm64.dll
+            artifact-name: native-lib-windows-aarch64.dll
 
           - os: macos-latest
             java-version: 8
