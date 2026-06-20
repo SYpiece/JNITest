@@ -1,0 +1,89 @@
+name: Build and Publish
+
+on:
+  workflow_dispatch:
+
+env:
+  NATIVE_PATH: ./src/main/resources/native/
+
+jobs:
+  build-native:
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            java-distribution: temurin
+            lib-path: ./build/libapp.so
+            artifact-name: native-lib-linux-amd64.so
+
+          - os: ubuntu-24.04-arm
+            java-distribution: temurin
+            lib-path: ./build/libapp.so
+            artifact-name: native-lib-linux-arm64.so
+
+          - os: windows-latest
+            java-distribution: temurin
+            lib-path: ./build/Release/app.dll
+            artifact-name: native-lib-windows-amd64.so
+
+          - os: windows-11-arm
+            java-distribution: temurin
+            lib-path: ./build/Release/app.dll
+            artifact-name: native-lib-windows-arm64.so
+
+          - os: macos-latest
+            java-distribution: zulu
+            lib-path: ./build/libapp.dylib
+            artifact-name: native-lib-macos-arm64.so
+
+          - os: macos-26-intel
+            java-distribution: temurin
+            lib-path: ./build/libapp.dylib
+            artifact-name: native-lib-macos-amd64.so
+
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v7
+      - run: |
+          mkdir -p build
+          cd ./build/
+          cmake ../
+          cmake --build . --config Release
+      - run: |
+          mkdir -p ${{ matrix.resource-dir }}
+          cp ${{ matrix.lib-path }} ${{ NATIVE_PATH }}
+      - uses: actions/setup-java@v5
+        with:
+          java-version: 8
+          distribution: ${{ matrix.java-distribution }}
+      - run: mvn test
+      - uses: actions/upload-artifact@v7
+        with:
+          path: ${{ matrix.lib-path }}
+          name: ${{ matrix.artifact-name }}
+          archive: 'false'
+          if-no-files-found: 'error'
+
+  build-publish-jar:
+    needs: build-native
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v5
+        with:
+          java-version: 8
+          distribution: temurin
+      - run: |
+          mkdir -p ${{ NATIVE_PATH }}
+      - uses: actions/download-artifact@v8
+        with:
+          path: ${{ NATIVE_PATH }}
+          pattern: 'native-lib-*'
+          merge-multiple: 'true'
+      - run: mvn package
+      - uses: actions/upload-artifact@v7
+        with:
+          path: ./target/app.jar
+          name: 'app.jar'
+          archive: 'false'
+          if-no-files-found: 'error'

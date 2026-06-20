@@ -19,14 +19,11 @@ jobs:
           mkdir -p ./src/main/resources/native/
           cp ./build/libapp.so ./src/main/resources/native/
       - uses: actions/setup-java@v5
-        if: success()
         with:
           java-version: 8
           distribution: temurin
       - run: mvn test
-        if: success()
       - uses: actions/upload-artifact@v7
-        if: success()
         with:
           path: ./build/libapp.so
           name: 'libapp.so'
@@ -46,14 +43,11 @@ jobs:
           mkdir -p ./src/main/resources/native/
           cp ./build/Release/app.dll ./src/main/resources/native/
       - uses: actions/setup-java@v5
-        if: success()
         with:
           java-version: 8
           distribution: temurin
       - run: mvn test
-        if: success()
       - uses: actions/upload-artifact@v7
-        if: success()
         with:
           path: ./build/Release/app.dll
           name: 'app.dll'
@@ -73,14 +67,11 @@ jobs:
           mkdir -p ./src/main/resources/native/
           cp ./build/libapp.dylib ./src/main/resources/native/
       - uses: actions/setup-java@v5
-        if: success()
         with:
           java-version: 8
           distribution: zulu
       - run: mvn test
-        if: success()
       - uses: actions/upload-artifact@v7
-        if: success()
         with:
           path: ./build/libapp.dylib
           name: 'libapp.dylib'
@@ -99,24 +90,19 @@ jobs:
       - run: |
           mkdir -p ./src/main/resources/native/
       - uses: actions/download-artifact@v8
-        if: success()
         with:
           path: ./src/main/resources/native/
           name: 'libapp.so'
       - uses: actions/download-artifact@v8
-        if: success()
         with:
           path: ./src/main/resources/native/
           name: 'app.dll'
       - uses: actions/download-artifact@v8
-        if: success()
         with:
           path: ./src/main/resources/native/
           name: 'libapp.dylib'
       - run: mvn package
-        if: success()
       - uses: actions/upload-artifact@v7
-        if: success()
         with:
           path: ./target/app.jar
           name: 'app.jar'
