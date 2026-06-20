@@ -27,7 +27,7 @@ jobs:
             artifact-name: native-lib-windows-amd64.dll
 
           - os: windows-11-arm
-            java-distribution: temurin
+            java-distribution: zulu
             lib-path: ./build/Release/app.dll
             artifact-name: native-lib-windows-arm64.dll
 
