@@ -46,7 +46,7 @@ jobs:
           cmake --build . --config Release
       - run: |
           mkdir -p ${{ env.NATIVE_PATH }}
-          cp ${{ matrix.lib-path }} ${{ env.NATIVE_PATH }}
+          cp ${{ matrix.lib-path }} ${{ env.NATIVE_PATH }}${{ matrix.artifact-name }}
       - uses: actions/setup-java@v5
         with:
           java-version: 8
@@ -54,8 +54,8 @@ jobs:
       - run: mvn test
       - uses: actions/upload-artifact@v7
         with:
-          path: ${{ matrix.lib-path }}
-          name: ${{ matrix.artifact-name }}
+          path: ${{ env.NATIVE_PATH }}${{ matrix.artifact-name }}
+          archive: 'false'
           if-no-files-found: 'error'
 
   build-publish-jar:
