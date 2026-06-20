@@ -12,26 +12,37 @@ jobs:
       matrix:
         include:
           - os: ubuntu-latest
+            java-version: 8
             java-distribution: temurin
             lib-path: ./build/libapp.so
             artifact-name: native-lib-linux-amd64.so
 
           - os: ubuntu-24.04-arm
+            java-version: 8
             java-distribution: temurin
             lib-path: ./build/libapp.so
             artifact-name: native-lib-linux-aarch64.so
 
           - os: windows-latest
+            java-version: 8
             java-distribution: temurin
             lib-path: ./build/Release/app.dll
             artifact-name: native-lib-windows-amd64.dll
 
+          - os: windows-11-arm
+            java-version: 11
+            java-distribution: microsoft
+            lib-path: ./build/Release/app.dll
+            artifact-name: native-lib-windows-arm64.dll
+
           - os: macos-latest
+            java-version: 8
             java-distribution: zulu
             lib-path: ./build/libapp.dylib
             artifact-name: native-lib-macos-aarch64.dylib
 
           - os: macos-26-intel
+            java-version: 8
             java-distribution: temurin
             lib-path: ./build/libapp.dylib
             artifact-name: native-lib-macos-x86_64.dylib
@@ -49,7 +60,7 @@ jobs:
           cp ${{ matrix.lib-path }} ${{ env.NATIVE_PATH }}${{ matrix.artifact-name }}
       - uses: actions/setup-java@v5
         with:
-          java-version: 8
+          java-version: ${{ matrix.java-version }}
           distribution: ${{ matrix.java-distribution }}
       - run: mvn test
       - uses: actions/upload-artifact@v7

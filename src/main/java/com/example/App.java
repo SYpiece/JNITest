@@ -13,7 +13,7 @@ public class App {
         String arch = System.getProperty("os.arch").toLowerCase();
         String libFileName;
         if (os.contains("win")) {
-            libFileName = "native-lib-windows-amd64.dll";
+            libFileName = "native-lib-windows-" + arch + ".dll";
         } else if (os.contains("mac")) {
             libFileName = "native-lib-macos-" + arch + ".dylib";
         } else { // Linux / Unix
