@@ -15,19 +15,19 @@ jobs:
           cd build
           cmake ../
           cmake --build . --config Release
+      - run: |
+          cp -f .build/libapp.so ./src/main/resources/native/libapp.so
       - uses: actions/setup-java@v5
         if: success()
         with:
           java-version: 8
           distribution: temurin
-      - run: |
-          cp ./build/libapp.so ./libapp.so
-          mvn test
+      - run: mvn test
         if: success()
       - uses: actions/upload-artifact@v7
         if: success()
         with:
-          path: ./libapp.so
+          path: ./build/libapp.so
           name: 'libapp.so'
           archive: 'false'
           if-no-files-found: 'error'
@@ -41,19 +41,19 @@ jobs:
           cd build
           cmake ../
           cmake --build . --config Release
+      - run: |
+          cp -f .build/Release/app.dll ./src/main/resources/native/app.dll
       - uses: actions/setup-java@v5
         if: success()
         with:
           java-version: 8
           distribution: temurin
-      - run: |
-          cp ./build/Release/app.dll ./app.dll
-          mvn test
+      - run: mvn test
         if: success()
       - uses: actions/upload-artifact@v7
         if: success()
         with:
-          path: ./app.dll
+          path: ./build/Release/app.dll
           name: 'app.dll'
           archive: 'false'
           if-no-files-found: 'error'
@@ -67,19 +67,19 @@ jobs:
           cd build
           cmake ../
           cmake --build . --config Release
+      - run: |
+          cp -f .build/libapp.dylib ./src/main/resources/native/libapp.dylib
       - uses: actions/setup-java@v5
         if: success()
         with:
           java-version: 8
           distribution: zulu
-      - run: |
-          cp ./build/libapp.dylib ./libapp.dylib
-          mvn test
+      - run: mvn test
         if: success()
       - uses: actions/upload-artifact@v7
         if: success()
         with:
-          path: ./libapp.dylib
+          path: ./build/libapp.dylib
           name: 'libapp.dylib'
           archive: 'false'
           if-no-files-found: 'error'
@@ -89,3 +89,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+      - uses: actions/setup-java@v5
+        with:
+          java-version: 8
+          distribution: temurin
+      - uses: actions/download-artifact@v8
+        if: success()
+        with:
+          path: ./src/main/resources/native/
+          name: 'libapp.so'
+      - uses: actions/download-artifact@v8
+        if: success()
+        with:
+          path: ./src/main/resources/native/
+          name: 'app.dll'
+      - uses: actions/download-artifact@v8
+        if: success()
+        with:
+          path: ./src/main/resources/native/
+          name: 'libapp.dylib'
+      - run: mvn package
+        if: success()
+      - uses: actions/upload-artifact@v7
+        if: success()
+        with:
+          path: ./target/app.jar
+          name: 'app.jar'
