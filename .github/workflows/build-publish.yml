@@ -24,22 +24,22 @@ jobs:
           - os: windows-latest
             java-distribution: temurin
             lib-path: ./build/Release/app.dll
-            artifact-name: native-lib-windows-amd64.so
+            artifact-name: native-lib-windows-amd64.dll
 
           - os: windows-11-arm
             java-distribution: temurin
             lib-path: ./build/Release/app.dll
-            artifact-name: native-lib-windows-arm64.so
+            artifact-name: native-lib-windows-arm64.dll
 
           - os: macos-latest
             java-distribution: zulu
             lib-path: ./build/libapp.dylib
-            artifact-name: native-lib-macos-arm64.so
+            artifact-name: native-lib-macos-arm64.dylib
 
           - os: macos-26-intel
             java-distribution: temurin
             lib-path: ./build/libapp.dylib
-            artifact-name: native-lib-macos-amd64.so
+            artifact-name: native-lib-macos-amd64.dylib
 
     runs-on: ${{ matrix.os }}
     steps:
