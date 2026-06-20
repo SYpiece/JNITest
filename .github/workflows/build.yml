@@ -16,7 +16,7 @@ jobs:
           cmake ../
           cmake --build . --config Release
       - run: |
-          cp -f .build/libapp.so ./src/main/resources/native/libapp.so
+          cp -f ./build/libapp.so ./src/main/resources/native/libapp.so
       - uses: actions/setup-java@v5
         if: success()
         with:
@@ -42,7 +42,7 @@ jobs:
           cmake ../
           cmake --build . --config Release
       - run: |
-          cp -f .build/Release/app.dll ./src/main/resources/native/app.dll
+          cp -f ./build/Release/app.dll ./src/main/resources/native/app.dll
       - uses: actions/setup-java@v5
         if: success()
         with:
@@ -68,7 +68,7 @@ jobs:
           cmake ../
           cmake --build . --config Release
       - run: |
-          cp -f .build/libapp.dylib ./src/main/resources/native/libapp.dylib
+          cp -f ./build/libapp.dylib ./src/main/resources/native/libapp.dylib
       - uses: actions/setup-java@v5
         if: success()
         with:
