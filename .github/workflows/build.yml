@@ -71,7 +71,7 @@ jobs:
         if: success()
         with:
           java-version: 8
-          distribution: temurin
+          distribution: zulu
       - run: |
           cp ./build/libapp.dylib ./libapp.dylib
           mvn test
@@ -89,4 +89,3 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-        
