@@ -27,7 +27,7 @@ jobs:
             artifact-name: native-lib-windows-amd64.dll
 
           - os: windows-11-arm
-            java-distribution: zulu
+            java-distribution: microsoft
             lib-path: ./build/Release/app.dll
             artifact-name: native-lib-windows-arm64.dll
 
@@ -61,7 +61,6 @@ jobs:
         with:
           path: ${{ matrix.lib-path }}
           name: ${{ matrix.artifact-name }}
-          archive: 'false'
           if-no-files-found: 'error'
 
   build-publish-jar:
