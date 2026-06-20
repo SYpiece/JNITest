@@ -26,11 +26,6 @@ jobs:
             lib-path: ./build/Release/app.dll
             artifact-name: native-lib-windows-amd64.dll
 
-          - os: windows-11-arm
-            java-distribution: oracle
-            lib-path: ./build/Release/app.dll
-            artifact-name: native-lib-windows-arm64.dll
-
           - os: macos-latest
             java-distribution: zulu
             lib-path: ./build/libapp.dylib
