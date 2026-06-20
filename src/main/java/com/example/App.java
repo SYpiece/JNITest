@@ -6,8 +6,7 @@ public class App {
     static native int call(int a, int b);
 
     static {
-        System.out.println(System.getProperty("user.dir"));
-        System.load("C:\\Users\\User\\Documents\\Java\\JNITest\\build\\Debug\\app.dll");
+        System.loadLibrary("app");
     }
 
     public static void main(String[] args) {
