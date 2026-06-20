@@ -14,7 +14,7 @@ jobs:
           - os: ubuntu-latest
             java-distribution: temurin
             lib-path: ./build/libapp.so
-            artifact-name: native-lib-linux-x86_64.so
+            artifact-name: native-lib-linux-amd64.so
 
           - os: ubuntu-24.04-arm
             java-distribution: temurin
