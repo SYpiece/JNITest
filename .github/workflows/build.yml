@@ -120,3 +120,5 @@ jobs:
         with:
           path: ./target/app.jar
           name: 'app.jar'
+          archive: 'false'
+          if-no-files-found: 'error'
