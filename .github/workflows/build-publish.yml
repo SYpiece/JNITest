@@ -51,7 +51,7 @@ jobs:
           cmake --build . --config Release
       - run: |
           mkdir -p ${{ matrix.resource-dir }}
-          cp ${{ matrix.lib-path }} ${{ NATIVE_PATH }}
+          cp ${{ matrix.lib-path }} ${{ env.NATIVE_PATH }}
       - uses: actions/setup-java@v5
         with:
           java-version: 8
@@ -74,10 +74,10 @@ jobs:
           java-version: 8
           distribution: temurin
       - run: |
-          mkdir -p ${{ NATIVE_PATH }}
+          mkdir -p ${{ env.NATIVE_PATH }}
       - uses: actions/download-artifact@v8
         with:
-          path: ${{ NATIVE_PATH }}
+          path: ${{ env.NATIVE_PATH }}
           pattern: 'native-lib-*'
           merge-multiple: 'true'
       - run: mvn package
